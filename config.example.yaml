@@ -1,0 +1,14 @@
+deepseek:
+  api_key: YOUR_DEEPSEEK_API_KEY
+  base_url: https://api.deepseek.com
+  model: deepseek-chat
+
+obsidian:
+  vault_path: ~/Documents/Obsidian/MyVault
+  folder: YouTube笔记
+
+processing:
+  chunk_minutes: 10
+
+output:
+  html_dir: ./output

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>YouTube Digest</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1a3a5c;--navy-dark:#0f2a47;--blue:#2563eb;--blue-lt:#3b82f6;--blue-pale:#eff6ff;
+  --bg:#f0f4f8;--card:#fff;--border:#dde4ed;
+  --text:#1e293b;--muted:#64748b;
+  --green:#16a34a;--green-bg:#f0fdf4;
+  --red:#dc2626;--red-bg:#fef2f2;
+  --warn:#d97706;--warn-bg:#fffbeb;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* Header */
+.header{
+  background:linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 100%);
+  padding:24px 32px;display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 2px 12px rgba(0,0,0,.25)
+}
+.header-brand{display:flex;align-items:center;gap:12px}
+.header-icon{width:36px;height:36px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.header-title{color:#fff;font-size:18px;font-weight:700;letter-spacing:-.01em}
+.header-sub{color:rgba(255,255,255,.5);font-size:12px;margin-top:2px}
+.header-actions{display:flex;gap:8px}
+.btn-settings{
+  background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.2);
+  padding:6px 14px;border-radius:6px;font-size:13px;cursor:pointer;transition:.15s
+}
+.btn-settings:hover{background:rgba(255,255,255,.2);color:#fff}
+
+/* Main layout */
+.main{max-width:760px;margin:0 auto;padding:32px 24px}
+
+/* Alert banner */
+.alert{
+  display:flex;align-items:flex-start;gap:12px;padding:14px 18px;
+  border-radius:10px;margin-bottom:24px;font-size:14px
+}
+.alert.warn{background:var(--warn-bg);border:1px solid #fde68a;color:#92400e}
+.alert.error{background:var(--red-bg);border:1px solid #fecaca;color:#991b1b}
+.alert.success{background:var(--green-bg);border:1px solid #bbf7d0;color:#14532d}
+.alert-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.alert a{color:inherit;font-weight:600}
+
+/* Cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px}
+.card-title{font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+
+/* Settings form */
+.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field.full{grid-column:span 2}
+.field label{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.03em}
+.field input{
+  padding:9px 12px;border:1.5px solid var(--border);border-radius:7px;
+  font-size:14px;color:var(--text);background:var(--bg);transition:.15s
+}
+.field input:focus{outline:none;border-color:var(--blue-lt);background:#fff;box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+.field input.error-field{border-color:var(--red)}
+.field-hint{font-size:11.5px;color:var(--muted)}
+.save-row{display:flex;align-items:center;gap:10px;margin-top:4px}
+.save-status{font-size:13px;color:var(--green)}
+.save-status.error{color:var(--red)}
+
+/* URL input */
+.url-area{
+  width:100%;padding:12px;border:1.5px solid var(--border);border-radius:8px;
+  font-size:14px;color:var(--text);background:var(--bg);resize:vertical;
+  min-height:100px;font-family:inherit;line-height:1.6;transition:.15s
+}
+.url-area:focus{outline:none;border-color:var(--blue-lt);background:#fff;box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+.url-hint{font-size:12px;color:var(--muted);margin-top:6px}
+.chunk-row{display:flex;align-items:center;gap:10px;margin-top:14px}
+.chunk-row label{font-size:13px;color:var(--muted)}
+.chunk-select{
+  padding:6px 10px;border:1.5px solid var(--border);border-radius:6px;
+  font-size:13px;background:var(--bg);color:var(--text);cursor:pointer
+}
+.chunk-select:focus{outline:none;border-color:var(--blue-lt)}
+
+/* Process button */
+.btn-process{
+  width:100%;padding:13px;background:var(--blue);color:#fff;border:none;
+  border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;
+  transition:.15s;margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px
+}
+.btn-process:hover:not(:disabled){background:#1d4ed8}
+.btn-process:disabled{opacity:.6;cursor:not-allowed}
+.btn-process .spinner{
+  width:16px;height:16px;border:2px solid rgba(255,255,255,.3);
+  border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none
+}
+.btn-process.loading .spinner{display:block}
+.btn-process.loading .btn-label{display:none}
+.btn-process .btn-label-loading{display:none}
+.btn-process.loading .btn-label-loading{display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Progress section */
+.progress-section{display:none}
+.progress-section.visible{display:block}
+.log-feed{
+  background:#0f172a;border-radius:10px;padding:16px;
+  font-family:ui-monospace,"SF Mono",Consolas,monospace;font-size:12.5px;
+  max-height:300px;overflow-y:auto;line-height:1.7
+}
+.log-line{padding:1px 0}
+.log-line.info{color:#94a3b8}
+.log-line.warn{color:#fbbf24}
+.log-line.error{color:#f87171}
+.log-line.start{color:#60a5fa;font-weight:600}
+.log-line.done-line{color:#34d399;font-weight:600}
+
+/* Progress bar */
+.progress-bar-wrap{height:4px;background:#e2e8f0;border-radius:2px;margin-bottom:16px;overflow:hidden}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue-lt));width:0%;transition:width .3s;border-radius:2px}
+
+/* Results */
+.results-section{display:none}
+.results-section.visible{display:block}
+.result-card{
+  background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:20px 24px;margin-bottom:14px;
+  display:flex;align-items:center;gap:16px
+}
+.result-card.error-card{background:var(--red-bg);border-color:#fecaca}
+.result-thumb{
+  width:48px;height:48px;background:var(--blue-pale);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0
+}
+.result-info{flex:1;min-width:0}
+.result-title{font-size:15px;font-weight:600;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.result-meta{font-size:12.5px;color:var(--muted);margin-top:3px}
+.result-actions{display:flex;gap:8px;flex-shrink:0}
+.btn-sm{
+  padding:7px 14px;border-radius:7px;font-size:13px;font-weight:500;
+  cursor:pointer;transition:.15s;border:none;text-decoration:none;display:inline-flex;align-items:center;gap:5px
+}
+.btn-html{background:var(--blue-pale);color:var(--blue);border:1px solid #bfdbfe}
+.btn-html:hover{background:var(--blue);color:#fff}
+.btn-obs{background:#f5f0ff;color:#7c3aed;border:1px solid #ddd6fe}
+.btn-obs:hover{background:#7c3aed;color:#fff}
+.btn-reset{
+  width:100%;padding:10px;background:transparent;color:var(--muted);
+  border:1px solid var(--border);border-radius:7px;font-size:13px;
+  cursor:pointer;transition:.15s;margin-top:8px
+}
+.btn-reset:hover{background:var(--border)}
+
+/* Library */
+.lib-section{margin-top:32px}
+.lib-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.lib-title{font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.lib-count{font-size:12px;color:var(--muted);background:var(--border);padding:2px 8px;border-radius:10px}
+.lib-empty{text-align:center;padding:32px;color:var(--muted);font-size:14px;background:var(--card);border:1px solid var(--border);border-radius:10px}
+.lib-card{
+  background:var(--card);border:1px solid var(--border);border-radius:10px;
+  padding:16px 20px;margin-bottom:10px;
+  display:flex;align-items:center;gap:14px;transition:.15s
+}
+.lib-card:hover{border-color:var(--blue-lt);box-shadow:0 2px 8px rgba(37,99,235,.08)}
+.lib-icon{font-size:20px;flex-shrink:0}
+.lib-info{flex:1;min-width:0}
+.lib-card-title{font-size:14px;font-weight:600;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lib-card-meta{font-size:12px;color:var(--muted);margin-top:2px}
+.lib-card-summary{font-size:12.5px;color:var(--text);margin-top:5px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.lib-actions{display:flex;gap:6px;flex-shrink:0}
+
+/* Collapsible */
+.collapsible-header{
+  display:flex;align-items:center;justify-content:space-between;
+  cursor:pointer;user-select:none
+}
+.collapsible-header .toggle-icon{
+  font-size:14px;color:var(--muted);transition:transform .2s
+}
+.collapsible-body{display:none;margin-top:16px}
+.collapsible-body.open{display:block}
+.collapsible-header.open .toggle-icon{transform:rotate(180deg)}
+
+/* Misc */
+.divider{height:1px;background:var(--border);margin:20px 0}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-brand">
+    <div class="header-icon">🎬</div>
+    <div>
+      <div class="header-title">YouTube Digest</div>
+      <div class="header-sub">视频内容梳理 · 双语总结 · 自动存入 Obsidian</div>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="btn-settings" onclick="toggleSettings()">⚙️ 设置</button>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- Config warning banner -->
+  <div id="banner" class="alert warn" style="display:none">
+    <span class="alert-icon">⚠️</span>
+    <div>请先在设置中填写 <strong>DeepSeek API Key</strong> 和 <strong>Obsidian Vault 路径</strong>，工具才能正常运行。</div>
+  </div>
+
+  <!-- Settings card -->
+  <div class="card" id="settings-card" style="display:none">
+    <div class="collapsible-header open" onclick="toggleSettingsBody()">
+      <div class="card-title" style="margin-bottom:0">设置</div>
+      <span class="toggle-icon open">▼</span>
+    </div>
+    <div class="collapsible-body open" id="settings-body">
+      <div class="settings-grid">
+        <div class="field full">
+          <label>DeepSeek API Key</label>
+          <input type="password" id="s-api-key" placeholder="sk-..." autocomplete="off">
+          <span class="field-hint">在 platform.deepseek.com 获取</span>
+        </div>
+        <div class="field full">
+          <label>Obsidian Vault 路径</label>
+          <input type="text" id="s-vault" placeholder="~/Documents/Obsidian/MyVault">
+        </div>
+        <div class="field">
+          <label>Vault 内子文件夹</label>
+          <input type="text" id="s-folder" placeholder="YouTube笔记">
+        </div>
+        <div class="field">
+          <label>分段时长（分钟）</label>
+          <input type="number" id="s-chunk" min="5" max="30" value="10">
+          <span class="field-hint">建议 10 分钟，长演讲可用 15</span>
+        </div>
+      </div>
+      <div class="save-row" style="margin-top:14px">
+        <button class="btn-sm btn-html" onclick="saveSettings()" style="border:none">保存设置</button>
+        <span id="save-status" class="save-status"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- URL Input card -->
+  <div class="card">
+    <div class="card-title">粘贴 YouTube 链接</div>
+    <textarea
+      id="url-input"
+      class="url-area"
+      placeholder="https://www.youtube.com/watch?v=...&#10;https://www.youtube.com/watch?v=...&#10;&#10;每行一个链接，支持同时处理多个视频"
+    ></textarea>
+    <div class="url-hint">支持：youtube.com/watch?v=、youtu.be/、youtube.com/shorts/ 等格式</div>
+
+    <div class="chunk-row">
+      <label>分段粒度：</label>
+      <select class="chunk-select" id="chunk-select">
+        <option value="5">每 5 分钟</option>
+        <option value="10" selected>每 10 分钟（推荐）</option>
+        <option value="15">每 15 分钟</option>
+        <option value="20">每 20 分钟</option>
+      </select>
+    </div>
+
+    <button class="btn-process" id="process-btn" onclick="startProcess()">
+      <div class="spinner"></div>
+      <span class="btn-label">▶ 开始处理</span>
+      <span class="btn-label-loading">处理中，请稍候...</span>
+    </button>
+  </div>
+
+  <!-- Progress section -->
+  <div class="card progress-section" id="progress-section">
+    <div class="card-title">处理进度</div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="progress-bar"></div></div>
+    <div class="log-feed" id="log-feed"></div>
+  </div>
+
+  <!-- Results section -->
+  <div class="results-section" id="results-section">
+    <div class="card-title" style="margin-bottom:12px;padding-left:2px">处理完成</div>
+    <div id="results-list"></div>
+    <button class="btn-reset" onclick="resetUI()">↩ 处理新的视频</button>
+  </div>
+
+  <!-- Library section -->
+  <div class="lib-section" id="lib-section">
+    <div class="lib-header">
+      <span class="lib-title">📚 历史记录</span>
+      <span class="lib-count" id="lib-count">0 个视频</span>
+    </div>
+    <div id="lib-list">
+      <div class="lib-empty">还没有处理过视频 — 处理完成后会自动出现在这里</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── Config ─────────────────────────────────────────────────────────────────
+let currentConfig = {};
+
+async function loadConfig() {
+  try {
+    const res = await fetch('/config');
+    currentConfig = await res.json();
+    document.getElementById('s-api-key').value = currentConfig.api_key || '';
+    document.getElementById('s-vault').value = currentConfig.vault_path || '';
+    document.getElementById('s-folder').value = currentConfig.folder || 'YouTube笔记';
+    document.getElementById('s-chunk').value = currentConfig.chunk_minutes || 10;
+    document.getElementById('chunk-select').value = currentConfig.chunk_minutes || 10;
+
+    if (!currentConfig.api_key || !currentConfig.vault_path || currentConfig.vault_path.includes('MyVault')) {
+      document.getElementById('banner').style.display = 'flex';
+      document.getElementById('settings-card').style.display = 'block';
+    }
+  } catch(e) {
+    showBanner('error', '无法加载配置文件，请检查 config.yaml 是否存在');
+  }
+}
+
+async function saveSettings() {
+  const apiKey = document.getElementById('s-api-key').value.trim();
+  const vaultPath = document.getElementById('s-vault').value.trim();
+  const folder = document.getElementById('s-folder').value.trim() || 'YouTube笔记';
+  const chunkMins = parseInt(document.getElementById('s-chunk').value) || 10;
+  const status = document.getElementById('save-status');
+
+  try {
+    const res = await fetch('/config', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({api_key: apiKey, vault_path: vaultPath, folder, chunk_minutes: chunkMins})
+    });
+    const data = await res.json();
+    if (data.ok) {
+      status.textContent = '✅ 已保存';
+      status.className = 'save-status';
+      document.getElementById('chunk-select').value = chunkMins;
+      currentConfig = {api_key: apiKey, vault_path: vaultPath, folder, chunk_minutes: chunkMins};
+      if (apiKey && vaultPath) document.getElementById('banner').style.display = 'none';
+      setTimeout(() => { status.textContent = ''; }, 3000);
+    } else {
+      status.textContent = '❌ ' + (data.error || '保存失败');
+      status.className = 'save-status error';
+    }
+  } catch(e) {
+    status.textContent = '❌ 网络错误';
+    status.className = 'save-status error';
+  }
+}
+
+function toggleSettings() {
+  const card = document.getElementById('settings-card');
+  card.style.display = card.style.display === 'none' ? 'block' : 'none';
+}
+
+function toggleSettingsBody() {
+  const header = document.querySelector('.collapsible-header');
+  const body = document.getElementById('settings-body');
+  header.classList.toggle('open');
+  body.classList.toggle('open');
+}
+
+// ── Processing ──────────────────────────────────────────────────────────────
+let totalChunks = 0;
+let processedChunks = 0;
+
+async function startProcess() {
+  const rawInput = document.getElementById('url-input').value.trim();
+  if (!rawInput) {
+    shakeElement('url-input');
+    return;
+  }
+
+  const urls = rawInput.split('\n').map(u => u.trim()).filter(u => u.length > 0);
+  if (urls.length === 0) return;
+
+  // Update chunk setting from select
+  const chunkMins = parseInt(document.getElementById('chunk-select').value);
+
+  const btn = document.getElementById('process-btn');
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  document.getElementById('progress-section').classList.add('visible');
+  document.getElementById('results-section').classList.remove('visible');
+  document.getElementById('log-feed').innerHTML = '';
+  document.getElementById('progress-bar').style.width = '0%';
+  totalChunks = 0; processedChunks = 0;
+
+  try {
+    const res = await fetch('/process', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({urls})
+    });
+    const {job_id} = await res.json();
+    connectStream(job_id);
+  } catch(e) {
+    addLog('❌ 请求失败：' + e.message, 'error');
+    resetBtn();
+  }
+}
+
+function connectStream(jobId) {
+  const es = new EventSource('/stream/' + jobId);
+
+  es.onmessage = (ev) => {
+    const event = JSON.parse(ev.data);
+
+    if (event.type === 'ping') return;
+
+    if (event.type === 'start') {
+      addLog(event.message, 'start');
+    } else if (event.type === 'info') {
+      addLog(event.message, 'info');
+      // Track progress: count "分析第 N/M 段" messages
+      const m = event.message.match(/分析第\s*(\d+)\/(\d+)/);
+      if (m) {
+        totalChunks = parseInt(m[2]);
+        processedChunks = parseInt(m[1]);
+        updateProgress();
+      }
+    } else if (event.type === 'warn') {
+      addLog(event.message, 'warn');
+    } else if (event.type === 'video_error') {
+      addLog(event.message, 'error');
+    } else if (event.type === 'video_done') {
+      addLog(`✅ 完成：${event.result.title}`, 'done-line');
+    } else if (event.type === 'done') {
+      addLog('━━━ 全部处理完成 ━━━', 'done-line');
+      document.getElementById('progress-bar').style.width = '100%';
+      es.close();
+      showResults(event.results, event.errors);
+      resetBtn();
+      loadLibrary();  // refresh history
+    } else if (event.type === 'error') {
+      addLog('❌ ' + event.message, 'error');
+      es.close();
+      resetBtn();
+    }
+  };
+
+  es.onerror = () => {
+    addLog('⚠️  连接中断', 'warn');
+    es.close();
+    resetBtn();
+  };
+}
+
+function addLog(msg, type = 'info') {
+  const feed = document.getElementById('log-feed');
+  const line = document.createElement('div');
+  line.className = 'log-line ' + type;
+  line.textContent = msg;
+  feed.appendChild(line);
+  feed.scrollTop = feed.scrollHeight;
+}
+
+function updateProgress() {
+  if (!totalChunks) return;
+  const pct = Math.min(95, (processedChunks / totalChunks) * 100);
+  document.getElementById('progress-bar').style.width = pct + '%';
+}
+
+function showResults(results, errors) {
+  const sec = document.getElementById('results-section');
+  const list = document.getElementById('results-list');
+  list.innerHTML = '';
+  sec.classList.add('visible');
+
+  results.forEach(r => {
+    const card = document.createElement('div');
+    card.className = 'result-card';
+    card.innerHTML = `
+      <div class="result-thumb">🎬</div>
+      <div class="result-info">
+        <div class="result-title" title="${esc(r.title)}">${esc(r.title)}</div>
+        <div class="result-meta">📺 ${esc(r.channel)} · ⏱ ${esc(r.duration)} · ${r.sections} 个片段</div>
+      </div>
+      <div class="result-actions">
+        <a class="btn-sm btn-html" href="/output/${esc(r.html_filename)}" target="_blank">🌐 HTML 报告</a>
+        ${r.md_path ? `<button class="btn-sm btn-obs" onclick="copyPath('${esc(r.md_path)}')">📝 复制路径</button>` : ''}
+      </div>
+    `;
+    list.appendChild(card);
+  });
+
+  errors.forEach(e => {
+    const card = document.createElement('div');
+    card.className = 'result-card error-card';
+    card.innerHTML = `
+      <div class="result-thumb">❌</div>
+      <div class="result-info">
+        <div class="result-title">${esc(e.url)}</div>
+        <div class="result-meta" style="color:#991b1b">${esc(e.error)}</div>
+      </div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+function copyPath(path) {
+  navigator.clipboard.writeText(path).then(() => {
+    showToast('路径已复制：' + path);
+  });
+}
+
+// ── Helpers ─────────────────────────────────────────────────────────────────
+function resetBtn() {
+  const btn = document.getElementById('process-btn');
+  btn.classList.remove('loading');
+  btn.disabled = false;
+}
+
+function resetUI() {
+  document.getElementById('results-section').classList.remove('visible');
+  document.getElementById('progress-section').classList.remove('visible');
+  document.getElementById('url-input').value = '';
+  document.getElementById('progress-bar').style.width = '0%';
+  document.getElementById('log-feed').innerHTML = '';
+}
+
+function showBanner(type, msg) {
+  const banner = document.getElementById('banner');
+  banner.className = 'alert ' + type;
+  banner.querySelector('div').textContent = msg;
+  banner.style.display = 'flex';
+}
+
+function shakeElement(id) {
+  const el = document.getElementById(id);
+  el.style.borderColor = 'var(--red)';
+  el.style.animation = 'none';
+  setTimeout(() => { el.style.borderColor = ''; }, 1500);
+}
+
+function esc(str) {
+  const d = document.createElement('div');
+  d.appendChild(document.createTextNode(str || ''));
+  return d.innerHTML;
+}
+
+let toastTimer;
+function showToast(msg) {
+  let t = document.getElementById('toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'toast';
+    t.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#1e293b;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;z-index:9999;opacity:0;transition:opacity .2s';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.opacity = '1';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.style.opacity = '0'; }, 2500);
+}
+
+// ── Library ─────────────────────────────────────────────────────────────────
+async function loadLibrary() {
+  try {
+    const res = await fetch('/library');
+    const entries = await res.json();
+    renderLibrary(entries);
+  } catch(e) {
+    // silently fail — library is optional
+  }
+}
+
+function renderLibrary(entries) {
+  const list = document.getElementById('lib-list');
+  const countEl = document.getElementById('lib-count');
+  countEl.textContent = entries.length + ' 个视频';
+
+  if (!entries.length) {
+    list.innerHTML = '<div class="lib-empty">还没有处理过视频 — 处理完成后会自动出现在这里</div>';
+    return;
+  }
+
+  list.innerHTML = '';
+  entries.forEach(e => {
+    const card = document.createElement('div');
+    card.className = 'lib-card';
+    card.innerHTML = `
+      <div class="lib-icon">🎬</div>
+      <div class="lib-info">
+        <div class="lib-card-title" title="${esc(e.title)}">${esc(e.title)}</div>
+        <div class="lib-card-meta">📺 ${esc(e.channel)} · ⏱ ${esc(e.duration)} · ${esc(e.date)} · ${e.sections} 段</div>
+        ${e.summary ? `<div class="lib-card-summary">${esc(e.summary)}</div>` : ''}
+      </div>
+      <div class="lib-actions">
+        <a class="btn-sm btn-html" href="/output/${esc(e.html_filename)}" target="_blank">🌐 报告</a>
+        <button class="btn-sm btn-obs" style="border:1px solid #ddd6fe" onclick="prefillUrl('${esc(e.url)}')">↩ 重跑</button>
+      </div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+function prefillUrl(url) {
+  document.getElementById('url-input').value = url;
+  document.getElementById('url-input').scrollIntoView({behavior: 'smooth'});
+  document.getElementById('url-input').focus();
+}
+
+// Init
+loadConfig();
+loadLibrary();
+</script>
+</body>
+</html>
