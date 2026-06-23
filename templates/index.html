@@ -7,12 +7,12 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#1a3a5c;--navy-dark:#0f2a47;--blue:#2563eb;--blue-lt:#3b82f6;--blue-pale:#eff6ff;
-  --bg:#f0f4f8;--card:#fff;--border:#dde4ed;
-  --text:#1e293b;--muted:#64748b;
-  --green:#16a34a;--green-bg:#f0fdf4;
-  --red:#dc2626;--red-bg:#fef2f2;
-  --warn:#d97706;--warn-bg:#fffbeb;
+  --navy:#1e3a5f;--navy-dark:#16304f;--blue:#1e3a5f;--blue-lt:#2c4f78;--blue-pale:#eef2f7;
+  --bg:#faf8f4;--card:#fffdf9;--border:#e7e0d4;
+  --text:#2a2521;--muted:#8a8174;
+  --green:#5f6b43;--green-bg:#eef0e6;
+  --red:#b4452e;--red-bg:#f7ece8;
+  --warn:#9a7b3f;--warn-bg:#f6f0e3;
 }
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 
@@ -41,9 +41,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
   display:flex;align-items:flex-start;gap:12px;padding:14px 18px;
   border-radius:10px;margin-bottom:24px;font-size:14px
 }
-.alert.warn{background:var(--warn-bg);border:1px solid #fde68a;color:#92400e}
-.alert.error{background:var(--red-bg);border:1px solid #fecaca;color:#991b1b}
-.alert.success{background:var(--green-bg);border:1px solid #bbf7d0;color:#14532d}
+.alert.warn{background:var(--warn-bg);border:1px solid #e6d9bd;color:var(--warn)}
+.alert.error{background:var(--red-bg);border:1px solid #e7c9c0;color:var(--red)}
+.alert.success{background:var(--green-bg);border:1px solid #d7ddc6;color:var(--green)}
 .alert-icon{font-size:16px;flex-shrink:0;margin-top:1px}
 .alert a{color:inherit;font-weight:600}
 
@@ -60,7 +60,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
   padding:9px 12px;border:1.5px solid var(--border);border-radius:7px;
   font-size:14px;color:var(--text);background:var(--bg);transition:.15s
 }
-.field input:focus{outline:none;border-color:var(--blue-lt);background:#fff;box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+.field input:focus{outline:none;border-color:var(--blue-lt);background:#fff;box-shadow:0 0 0 3px rgba(30,58,95,.12)}
 .field input.error-field{border-color:var(--red)}
 .field-hint{font-size:11.5px;color:var(--muted)}
 .save-row{display:flex;align-items:center;gap:10px;margin-top:4px}
@@ -73,7 +73,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
   font-size:14px;color:var(--text);background:var(--bg);resize:vertical;
   min-height:100px;font-family:inherit;line-height:1.6;transition:.15s
 }
-.url-area:focus{outline:none;border-color:var(--blue-lt);background:#fff;box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+.url-area:focus{outline:none;border-color:var(--blue-lt);background:#fff;box-shadow:0 0 0 3px rgba(30,58,95,.12)}
 .url-hint{font-size:12px;color:var(--muted);margin-top:6px}
 .chunk-row{display:flex;align-items:center;gap:10px;margin-top:14px}
 .chunk-row label{font-size:13px;color:var(--muted)}
@@ -89,7 +89,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
   border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;
   transition:.15s;margin-top:16px;display:flex;align-items:center;justify-content:center;gap:8px
 }
-.btn-process:hover:not(:disabled){background:#1d4ed8}
+.btn-process:hover:not(:disabled){background:var(--navy-dark)}
 .btn-process:disabled{opacity:.6;cursor:not-allowed}
 .btn-process .spinner{
   width:16px;height:16px;border:2px solid rgba(255,255,255,.3);
@@ -105,16 +105,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
 .progress-section{display:none}
 .progress-section.visible{display:block}
 .log-feed{
-  background:#0f172a;border-radius:10px;padding:16px;
+  background:#f4efe5;border:1px solid var(--border);border-radius:10px;padding:16px;
   font-family:ui-monospace,"SF Mono",Consolas,monospace;font-size:12.5px;
   max-height:300px;overflow-y:auto;line-height:1.7
 }
 .log-line{padding:1px 0}
-.log-line.info{color:#94a3b8}
-.log-line.warn{color:#fbbf24}
-.log-line.error{color:#f87171}
-.log-line.start{color:#60a5fa;font-weight:600}
-.log-line.done-line{color:#34d399;font-weight:600}
+.log-line.info{color:var(--muted)}
+.log-line.warn{color:var(--warn)}
+.log-line.error{color:var(--red)}
+.log-line.start{color:var(--navy);font-weight:600}
+.log-line.done-line{color:var(--green);font-weight:600}
 
 /* Progress bar */
 .progress-bar-wrap{height:4px;background:#e2e8f0;border-radius:2px;margin-bottom:16px;overflow:hidden}
@@ -128,7 +128,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
   padding:20px 24px;margin-bottom:14px;
   display:flex;align-items:center;gap:16px
 }
-.result-card.error-card{background:var(--red-bg);border-color:#fecaca}
+.result-card.error-card{background:var(--red-bg);border-color:#e7c9c0}
 .result-thumb{
   width:48px;height:48px;background:var(--blue-pale);border-radius:8px;
   display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0
@@ -163,14 +163,86 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
   padding:16px 20px;margin-bottom:10px;
   display:flex;align-items:center;gap:14px;transition:.15s
 }
-.lib-card:hover{border-color:var(--blue-lt);box-shadow:0 2px 8px rgba(37,99,235,.08)}
+.lib-card:hover{border-color:var(--blue-lt);box-shadow:0 2px 8px rgba(30,58,95,.10)}
 .lib-icon{font-size:20px;flex-shrink:0}
 .lib-info{flex:1;min-width:0}
 .lib-card-title{font-size:14px;font-weight:600;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .lib-card-meta{font-size:12px;color:var(--muted);margin-top:2px}
 .lib-card-summary{font-size:12.5px;color:var(--text);margin-top:5px;line-height:1.5;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.lib-actions{display:flex;gap:6px;flex-shrink:0}
+.cat-chip{background:var(--navy);color:#fff;font-size:11px;padding:2px 9px;border-radius:20px}
+.tag-chip{background:var(--warn-bg);color:var(--warn);font-size:11px;padding:1px 8px;border-radius:20px;border:1px solid #e6d9bd}
+.lib-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.lib-actions{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end;max-width:220px}
+.btn-edit{background:var(--blue-pale);color:var(--navy);border:1px solid var(--border)}
+.btn-edit:hover{background:var(--navy);color:#fff}
+.btn-reveal{background:#eef0e6;color:var(--green);border:1px solid #d7ddc6}
+.btn-reveal:hover{background:var(--green);color:#fff}
+.btn-del{background:var(--red-bg);color:var(--red);border:1px solid #e7c9c0}
+.btn-del:hover{background:var(--red);color:#fff}
+.btn-del.confirm{background:var(--red);color:#fff}
+
+/* A. 最近链接 / C2. 类别浏览 */
+.link-hist,.cat-browse{margin-top:14px}
+.lh-lbl{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.lh-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;
+  background:var(--blue-pale);border:1px solid var(--border);border-radius:8px;padding:9px 13px;user-select:none}
+.lh-bar:hover{border-color:var(--navy)}
+.lh-bar-t{font-size:13px;font-weight:600;color:var(--navy)}
+.lh-count{font-weight:400;color:var(--muted);font-size:12px}
+.lh-bar-x{font-size:12px;color:var(--muted)}
+.lh-list{display:flex;flex-direction:column;gap:3px;max-height:300px;overflow-y:auto;margin-top:8px;padding:0 2px}
+.lh-datehdr{font-size:11px;font-weight:700;letter-spacing:.03em;color:var(--muted);padding:9px 2px 4px}
+.lh-datehdr:first-child{padding-top:2px}
+.lh-item{display:flex;align-items:center;gap:8px;border-radius:7px;padding:5px 8px}
+.lh-item:hover{background:var(--blue-pale)}
+.lh-time{font-family:ui-monospace,monospace;font-size:11px;color:var(--navy);background:#fff;border:1px solid var(--border);
+  border-radius:6px;padding:2px 7px;min-width:48px;text-align:center;flex-shrink:0;cursor:pointer}
+.lh-time:hover{border-color:var(--navy)}
+.lh-cat{font-size:10.5px;color:#fff;background:var(--navy);border-radius:12px;padding:1px 8px;flex-shrink:0;white-space:nowrap}
+.lh-link{flex:1;min-width:0;font-size:12.5px;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lh-link:hover{text-decoration:underline}
+.lh-copy{flex-shrink:0;background:#fff;border:1px solid var(--border);color:var(--muted);font-size:11px;
+  padding:3px 9px;border-radius:6px;cursor:pointer;transition:.15s}
+.lh-copy:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+/* 回收站：右下角浮动 */
+.trash-fab{position:fixed;right:18px;bottom:18px;z-index:60;display:flex;flex-direction:column;align-items:flex-end;gap:9px}
+.tf-pill{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--border);
+  border-radius:22px;padding:8px 15px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;
+  box-shadow:0 3px 14px rgba(30,58,95,.13);transition:all .15s}
+.tf-pill:hover{border-color:var(--navy);color:var(--navy);box-shadow:0 4px 18px rgba(30,58,95,.2)}
+.tf-n{font-size:11px;font-weight:600;color:var(--muted)}
+.tf-panel{display:none;width:340px;max-width:calc(100vw - 36px);background:var(--card);
+  border:1px solid var(--border);border-radius:14px;box-shadow:0 10px 34px rgba(30,58,95,.2);padding:13px 14px}
+.trash-fab.open .tf-panel{display:block}
+.tf-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
+.tf-title{font-size:13px;font-weight:600;color:var(--navy)}
+.tf-x{font-size:12px;color:var(--muted);cursor:pointer;user-select:none}
+.tf-x:hover{color:var(--navy)}
+.th-list{display:flex;flex-direction:column;gap:3px;max-height:50vh;overflow-y:auto}
+.th-restore{color:var(--navy);border-color:var(--border)}
+.th-restore:hover{background:var(--navy);color:#fff}
+.th-orphan{flex-shrink:0;font-size:10.5px;color:var(--muted);background:#f0ece6;border:1px solid var(--border);border-radius:12px;padding:1px 8px;white-space:nowrap}
+.th-foot{padding:9px 2px 2px;border-top:1px dashed var(--border);margin-top:6px}
+.th-openfolder{background:#fff;border:1px solid var(--border);color:var(--navy);font-size:12px;padding:5px 12px;border-radius:7px;cursor:pointer;transition:.15s}
+.th-openfolder:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.cb-list{display:flex;flex-wrap:wrap;gap:7px}
+.cb-chip{background:#fff;border:1px solid var(--border);color:var(--text);font-size:12.5px;
+  padding:4px 12px;border-radius:20px;cursor:pointer;transition:.15s}
+.cb-chip:hover{background:var(--blue-pale);border-color:var(--blue-lt)}
+.cb-chip.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* C1. 库内编辑类别/标签 */
+.lib-edit{margin-top:10px;padding:12px 14px;background:var(--blue-pale);border:1px solid var(--border);border-radius:8px}
+.lib-edit-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:8px}
+.lib-edit-row label{font-size:12px;color:var(--muted);min-width:42px}
+.lib-edit select,.lib-edit input{font-family:inherit;font-size:13px;border:1px solid var(--border);
+  border-radius:6px;padding:6px 9px;background:#fff;color:var(--text)}
+.lib-edit input{flex:1;min-width:160px}
+.lib-edit .le-actions{display:flex;gap:7px;margin-top:4px}
+.le-save{background:var(--navy);color:#fff;border:none;padding:6px 16px;border-radius:6px;font-size:13px;cursor:pointer}
+.le-cancel{background:transparent;color:var(--muted);border:1px solid var(--border);padding:6px 14px;border-radius:6px;font-size:13px;cursor:pointer}
+.le-hint{font-size:11.5px;color:var(--muted);margin-top:2px}
 
 /* Collapsible */
 .collapsible-header{
@@ -186,20 +258,95 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
 
 /* Misc */
 .divider{height:1px;background:var(--border);margin:20px 0}
+
+/* ── 视觉升级：线性图标 / 真实缩略图 / 阶段进度 / 筛选合一 / 响应式 ── */
+.ic{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;vertical-align:-3px}
+.header-icon{color:#fff}
+.header-icon .ic{width:20px;height:20px}
+.btn-settings{display:inline-flex;align-items:center;gap:6px}
+.btn-settings .ic{width:15px;height:15px}
+.card-title,.lib-title,.lh-bar-t,.tf-title{display:inline-flex;align-items:center;gap:7px}
+.card-title .ic,.lib-title .ic,.lh-bar-t .ic,.tf-title .ic{width:15px;height:15px}
+.btn-process .ic{width:18px;height:18px}
+.btn-sm{align-items:center}
+.btn-sm .ic{width:14px;height:14px}
+/* 真实缩略图（结果 / 历史卡片）：16:9 封面 + 播放叠层 + 时长角标 */
+.result-card,.lib-card{align-items:flex-start}
+.thumb{position:relative;width:120px;height:67px;border-radius:8px;flex-shrink:0;overflow:hidden;background:linear-gradient(135deg,#27425f,#16304f);border:1px solid var(--border)}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .tplay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;opacity:.9;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+.thumb .tplay .ic{width:26px;height:26px}
+.thumb .tdur{position:absolute;right:4px;bottom:4px;background:rgba(16,28,44,.82);color:#fff;font-size:10px;font-family:ui-monospace,monospace;padding:1px 5px;border-radius:4px}
+.thumb.err{background:var(--red-bg);border-color:var(--red-bd);color:var(--red);display:flex;align-items:center;justify-content:center}
+.thumb.err .ic{width:24px;height:24px}
+/* meta 行内图标 */
+.mi{display:inline-flex;align-items:center;gap:4px}
+.mi .ic{width:13px;height:13px;vertical-align:-2px}
+.result-meta,.lib-card-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+/* 阶段进度反馈 */
+.progress-stage{font-size:13px;color:var(--navy);font-weight:600;margin-bottom:9px;display:flex;align-items:center;gap:8px;min-height:18px}
+.progress-stage .ps-dot{width:7px;height:7px;border-radius:50%;background:var(--navy);animation:psPulse 1.1s ease-in-out infinite;flex-shrink:0}
+.progress-stage.done .ps-dot{background:var(--green);animation:none}
+@keyframes psPulse{0%,100%{opacity:.25}50%{opacity:1}}
+.progress-bar.indet{background:linear-gradient(90deg,var(--blue-pale),var(--blue-lt),var(--blue-pale));background-size:200% 100%;animation:indet 1.2s linear infinite}
+@keyframes indet{0%{background-position:200% 0}100%{background-position:-200% 0}}
+/* 类别筛选合一（库头部一行 chip）*/
+.cat-filter{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 14px}
+/* 中文标题副标题 + 醒目日期 chip */
+.lib-card-orig{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4;
+  display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.date-chip{display:inline-flex;align-items:center;gap:4px;background:var(--blue-pale);color:var(--navy);
+  font-weight:600;font-size:11.5px;padding:2px 9px;border-radius:20px;border:1px solid #dbe4f0}
+.date-chip .ic{width:12px;height:12px}
+/* 库视图切换（卡片 / 按日期）*/
+.lib-head-right{display:flex;align-items:center;gap:12px}
+.view-toggle{display:inline-flex;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.vt-btn{display:inline-flex;align-items:center;gap:5px;border:none;background:var(--card);color:var(--muted);
+  font-size:12.5px;padding:5px 11px;cursor:pointer;transition:.12s}
+.vt-btn+.vt-btn{border-left:1px solid var(--border)}
+.vt-btn .ic{width:14px;height:14px}
+.vt-btn.active{background:var(--navy);color:#fff}
+/* 按日期检索视图：日期分组 + 封面 + 中文标题，紧凑利于检索 */
+.dv-group{margin-bottom:18px}
+.dv-date{font-size:12.5px;font-weight:700;color:var(--navy);padding:7px 2px 8px;
+  border-bottom:1px solid var(--border);margin-bottom:6px;display:flex;align-items:center;gap:9px}
+.dv-n{font-weight:400;color:var(--muted);font-size:11px;background:var(--border);border-radius:10px;padding:1px 8px}
+.dv-row{display:flex;align-items:center;gap:13px;padding:7px 8px;border-radius:9px;text-decoration:none}
+.dv-row:hover{background:var(--blue-pale)}
+.dv-title{font-size:14px;color:var(--navy);font-weight:500;line-height:1.45;min-width:0}
+.thumb.sm{width:90px;height:51px;border-radius:6px}
+.thumb.sm .tplay .ic{width:18px;height:18px}
+.thumb.sm .tdur{font-size:9px;padding:0 4px;right:3px;bottom:3px}
+/* 响应式缺口 */
+@media(max-width:600px){
+  .header{padding:16px 18px;flex-direction:column;align-items:flex-start;gap:12px}
+  .header-actions{width:100%;flex-wrap:wrap}
+  .main{padding:22px 16px}
+  .settings-grid{grid-template-columns:1fr}
+  .field.full{grid-column:span 1}
+  .result-card,.lib-card{flex-wrap:wrap}
+  .result-actions,.lib-actions{max-width:none;width:100%;justify-content:flex-start;margin-top:4px}
+  .lib-info,.result-info{flex-basis:calc(100% - 136px)}
+  .chunk-row{flex-wrap:wrap}
+  .chunk-row label{white-space:nowrap}
+  .chunk-row .url-hint{flex-basis:100%;margin-top:4px}
+}
 </style>
 </head>
 <body>
 
 <header class="header">
   <div class="header-brand">
-    <div class="header-icon">🎬</div>
+    <div class="header-icon"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.4" y="3.6" width="15.2" height="10.8" rx="2.6"/><path d="M8.1 6.9l4 2.2-4 2.2z" fill="currentColor" stroke="none"/></svg></div>
     <div>
       <div class="header-title">YouTube Digest</div>
       <div class="header-sub">视频内容梳理 · 双语总结 · 自动存入 Obsidian</div>
     </div>
   </div>
   <div class="header-actions">
-    <button class="btn-settings" onclick="toggleSettings()">⚙️ 设置</button>
+    <button class="btn-settings" onclick="goDashboard()"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5L10 4l6.5 5.5"/><path d="M5.2 8.3V16h9.6V8.3"/></svg>笔记中心首页</button>
+    <button class="btn-settings" onclick="openTextDigest()"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5.5C8.3 4.4 5.8 4.4 4 5v9.2c1.8-.6 4.3-.6 6 .5 1.7-1.1 4.2-1.1 6-.5V5c-1.8-.6-4.3-.6-6 .5z"/><path d="M10 5.5v9.2"/></svg>文本精读</button>
+    <button class="btn-settings" onclick="toggleSettings()"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h6M14 7h2M4 13h2M10 13h6"/><circle cx="12" cy="7" r="1.7"/><circle cx="8" cy="13" r="1.7"/></svg>设置</button>
   </div>
 </header>
 
@@ -207,7 +354,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
 
   <!-- Config warning banner -->
   <div id="banner" class="alert warn" style="display:none">
-    <span class="alert-icon">⚠️</span>
+    <span class="alert-icon"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3.4l7 12.6H3z"/><path d="M10 8.4v3.6M10 14.2v.2"/></svg></span>
     <div>请先在设置中填写 <strong>DeepSeek API Key</strong> 和 <strong>Obsidian Vault 路径</strong>，工具才能正常运行。</div>
   </div>
 
@@ -231,15 +378,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
         <div class="field">
           <label>Vault 内子文件夹</label>
           <input type="text" id="s-folder" placeholder="YouTube笔记">
+          <span class="field-hint">笔记会按 AI 判定的类别再分子文件夹存放</span>
         </div>
         <div class="field">
-          <label>分段时长（分钟）</label>
-          <input type="number" id="s-chunk" min="5" max="30" value="10">
-          <span class="field-hint">建议 10 分钟，长演讲可用 15</span>
+          <label>浏览器 Cookie（过反爬用）</label>
+          <select id="s-cookies" class="chunk-select" style="width:100%">
+            <option value="">不使用</option>
+            <option value="chrome">Chrome</option>
+            <option value="safari">Safari</option>
+            <option value="edge">Edge</option>
+            <option value="brave">Brave</option>
+            <option value="firefox">Firefox</option>
+          </select>
+          <span class="field-hint">遇到「Sign in to confirm…」时，选一个已登录 YouTube 的浏览器</span>
         </div>
       </div>
       <div class="save-row" style="margin-top:14px">
-        <button class="btn-sm btn-html" onclick="saveSettings()" style="border:none">保存设置</button>
+        <button class="btn-sm" onclick="saveSettings()" style="background:var(--navy);color:#fff;border:none;font-weight:600;padding:8px 18px">保存设置</button>
         <span id="save-status" class="save-status"></span>
       </div>
     </div>
@@ -255,19 +410,29 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
     ></textarea>
     <div class="url-hint">支持：youtube.com/watch?v=、youtu.be/、youtube.com/shorts/ 等格式</div>
 
+    <!-- A. 最近链接：默认折叠、按日期分组；点链接直接打开，单条可复制 -->
+    <div class="link-hist" id="link-hist" style="display:none">
+      <div class="lh-bar" onclick="toggleHist()">
+        <span class="lh-bar-t"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 5.5h9M7 10h9M7 14.5h9"/><circle cx="4" cy="5.5" r="1.1"/><circle cx="4" cy="10" r="1.1"/><circle cx="4" cy="14.5" r="1.1"/></svg> 最近处理的视频 <span id="lh-count" class="lh-count"></span></span>
+        <span class="lh-bar-x" id="lh-bar-x">点击展开 ▾</span>
+      </div>
+      <div class="lh-list" id="lh-list" style="display:none"></div>
+    </div>
+
     <div class="chunk-row">
-      <label>分段粒度：</label>
+      <label>本次分段粒度：</label>
       <select class="chunk-select" id="chunk-select">
-        <option value="5">每 5 分钟</option>
+        <option value="5">每 5 分钟（更细）</option>
         <option value="10" selected>每 10 分钟（推荐）</option>
         <option value="15">每 15 分钟</option>
         <option value="20">每 20 分钟</option>
       </select>
+      <span class="url-hint" style="margin:0">应用于本次全部链接；想分别用不同粒度就分批处理</span>
     </div>
 
     <button class="btn-process" id="process-btn" onclick="startProcess()">
       <div class="spinner"></div>
-      <span class="btn-label">▶ 开始处理</span>
+      <span class="btn-label"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 5l9 5-9 5z" fill="currentColor" stroke="none"/></svg> 开始处理</span>
       <span class="btn-label-loading">处理中，请稍候...</span>
     </button>
   </div>
@@ -275,6 +440,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
   <!-- Progress section -->
   <div class="card progress-section" id="progress-section">
     <div class="card-title">处理进度</div>
+    <div class="progress-stage" id="progress-stage" style="display:none"><span class="ps-dot"></span><span id="progress-stage-text">准备中…</span></div>
     <div class="progress-bar-wrap"><div class="progress-bar" id="progress-bar"></div></div>
     <div class="log-feed" id="log-feed"></div>
   </div>
@@ -283,15 +449,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
   <div class="results-section" id="results-section">
     <div class="card-title" style="margin-bottom:12px;padding-left:2px">处理完成</div>
     <div id="results-list"></div>
-    <button class="btn-reset" onclick="resetUI()">↩ 处理新的视频</button>
+    <button class="btn-reset" onclick="resetUI()"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px"><path d="M14.8 7.4A5.5 5.5 0 104.5 10"/><path d="M15 3.7v3.7h-3.7"/></svg> 处理新的视频</button>
   </div>
 
   <!-- Library section -->
   <div class="lib-section" id="lib-section">
     <div class="lib-header">
-      <span class="lib-title">📚 历史记录</span>
-      <span class="lib-count" id="lib-count">0 个视频</span>
+      <span class="lib-title"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3.5l6.5 3.3L10 10 3.5 6.8z"/><path d="M3.5 10.2L10 13.5 16.5 10.2"/><path d="M3.5 13.5L10 16.8 16.5 13.5"/></svg> 历史记录</span>
+      <div class="lib-head-right">
+        <div class="view-toggle">
+          <button class="vt-btn active" id="vt-cards" onclick="setLibView('cards')"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="5.5" height="5.5" rx="1"/><rect x="11" y="3.5" width="5.5" height="5.5" rx="1"/><rect x="3.5" y="11" width="5.5" height="5.5" rx="1"/><rect x="11" y="11" width="5.5" height="5.5" rx="1"/></svg> 卡片</button>
+          <button class="vt-btn" id="vt-date" onclick="setLibView('date')"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.8" y="5" width="12.4" height="11" rx="1.6"/><path d="M3.8 8.3h12.4"/><path d="M7.5 3.5v3M12.5 3.5v3"/></svg> 按日期</button>
+        </div>
+        <span class="lib-count" id="lib-count">0 个视频</span>
+      </div>
     </div>
+    <div class="cat-filter" id="cat-filter"></div>
     <div id="lib-list">
       <div class="lib-empty">还没有处理过视频 — 处理完成后会自动出现在这里</div>
     </div>
@@ -299,9 +472,55 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-seri
 
 </div>
 
+<!-- 回收站：固定在右下角浮动，默认收起为小药丸，点开展开面板（可一键恢复 / 打开文件夹） -->
+<div class="trash-fab" id="trash-hist" style="display:none">
+  <div class="tf-panel" id="th-panel">
+    <div class="tf-head">
+      <span class="tf-title"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6h11"/><path d="M8 6V4.3h4V6"/><path d="M6.3 6l.7 9.2h6l.7-9.2"/><path d="M9 8.6v5M11 8.6v5"/></svg> 回收站 <span id="th-count" class="lh-count"></span></span>
+      <span class="tf-x" onclick="toggleTrash()">收起 ▾</span>
+    </div>
+    <div class="th-list" id="th-list"></div>
+  </div>
+  <button class="tf-pill" onclick="toggleTrash()"><svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6h11"/><path d="M8 6V4.3h4V6"/><path d="M6.3 6l.7 9.2h6l.7-9.2"/><path d="M9 8.6v5M11 8.6v5"/></svg> <span class="tf-lbl">回收站</span><span id="th-pill-n" class="tf-n"></span></button>
+</div>
+
 <script>
+// ── 线性图标（深藏青描边，全站统一，替代 emoji）──────────────────────────────
+const _svg = b => '<svg class="ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + b + '</svg>';
+const IC = {
+  doc:     _svg('<path d="M5.5 3.5h6L15 7v9.5H5.5z"/><path d="M11 3.5V7h3.5"/><path d="M7.8 10.5h4.4M7.8 13h4.4"/>'),
+  copy:    _svg('<rect x="7" y="7" width="9" height="9" rx="1.6"/><path d="M4.5 12.5V4.5h8"/>'),
+  edit:    _svg('<path d="M13.2 4.3l2.5 2.5"/><path d="M12.4 5.1L5 12.5l-.9 3.4 3.4-.9 7.4-7.4z"/>'),
+  folder:  _svg('<path d="M3.3 6h4.2l1.4 1.8h7.8v7.7H3.3z"/>'),
+  rerun:   _svg('<path d="M14.8 7.4A5.5 5.5 0 104.5 10"/><path d="M15 3.7v3.7h-3.7"/>'),
+  trash:   _svg('<path d="M4.5 6h11"/><path d="M8 6V4.3h4V6"/><path d="M6.3 6l.7 9.2h6l.7-9.2"/><path d="M9 8.6v5M11 8.6v5"/>'),
+  restore: _svg('<path d="M5.2 10A4.8 4.8 0 1115 9.6"/><path d="M5 6.2v3.6h3.6"/>'),
+  tv:      _svg('<rect x="2.5" y="5" width="15" height="9.4" rx="1.8"/><path d="M6.7 5l3.3-2.4L13.3 5"/>'),
+  clock:   _svg('<circle cx="10" cy="10" r="6.8"/><path d="M10 6V10l2.8 1.6"/>'),
+  layers:  _svg('<path d="M10 3.5l6.5 3.3L10 10 3.5 6.8z"/><path d="M3.5 10.2L10 13.5 16.5 10.2"/>'),
+  play:    _svg('<circle cx="10" cy="10" r="8"/><path d="M8.2 6.5l5 3.5-5 3.5z" fill="currentColor" stroke="none"/>'),
+  alert:   _svg('<circle cx="10" cy="10" r="7"/><path d="M10 6.4v4M10 13.2v.2"/>'),
+  cal:     _svg('<rect x="3.8" y="5" width="12.4" height="11" rx="1.6"/><path d="M3.8 8.3h12.4"/><path d="M7.5 3.5v3M12.5 3.5v3"/>'),
+  grid:    _svg('<rect x="3.5" y="3.5" width="5.5" height="5.5" rx="1"/><rect x="11" y="3.5" width="5.5" height="5.5" rx="1"/><rect x="3.5" y="11" width="5.5" height="5.5" rx="1"/><rect x="11" y="11" width="5.5" height="5.5" rx="1"/>'),
+};
+// 缩略图：优先 e.video_id，否则从 url 解析 video id；拉不到原图时回退渐变 + 播放图标
+function vidId(e) {
+  if (e && e.video_id) return e.video_id;
+  const m = (e && e.url || '').match(/[?&]v=([\w-]{6,})|youtu\.be\/([\w-]{6,})|shorts\/([\w-]{6,})/);
+  return m ? (m[1] || m[2] || m[3]) : '';
+}
+function thumbHtml(e, dur, cls) {
+  const id = vidId(e);
+  const durBadge = dur ? `<span class="tdur">${esc(dur)}</span>` : '';
+  const overlay = `<div class="tplay">${IC.play}</div>`;
+  const img = id ? `<img src="https://i.ytimg.com/vi/${id}/mqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">` : '';
+  return `<div class="thumb ${cls || ''}">${img}${overlay}${durBadge}</div>`;
+}
+
 // ── Config ─────────────────────────────────────────────────────────────────
 let currentConfig = {};
+let currentCat = '';   // 类别筛选合一：库头部 chip 与列表共用此状态
+let libView = 'cards'; // 历史区视图：'cards' 卡片 | 'date' 按日期检索
 
 async function loadConfig() {
   try {
@@ -310,7 +529,7 @@ async function loadConfig() {
     document.getElementById('s-api-key').value = currentConfig.api_key || '';
     document.getElementById('s-vault').value = currentConfig.vault_path || '';
     document.getElementById('s-folder').value = currentConfig.folder || 'YouTube笔记';
-    document.getElementById('s-chunk').value = currentConfig.chunk_minutes || 10;
+    document.getElementById('s-cookies').value = currentConfig.cookies_browser || '';
     document.getElementById('chunk-select').value = currentConfig.chunk_minutes || 10;
 
     if (!currentConfig.api_key || !currentConfig.vault_path || currentConfig.vault_path.includes('MyVault')) {
@@ -326,21 +545,21 @@ async function saveSettings() {
   const apiKey = document.getElementById('s-api-key').value.trim();
   const vaultPath = document.getElementById('s-vault').value.trim();
   const folder = document.getElementById('s-folder').value.trim() || 'YouTube笔记';
-  const chunkMins = parseInt(document.getElementById('s-chunk').value) || 10;
+  const cookiesBrowser = document.getElementById('s-cookies').value;
+  const chunkMins = parseInt(document.getElementById('chunk-select').value) || 10;
   const status = document.getElementById('save-status');
 
   try {
     const res = await fetch('/config', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({api_key: apiKey, vault_path: vaultPath, folder, chunk_minutes: chunkMins})
+      body: JSON.stringify({api_key: apiKey, vault_path: vaultPath, folder, chunk_minutes: chunkMins, cookies_browser: cookiesBrowser})
     });
     const data = await res.json();
     if (data.ok) {
       status.textContent = '✅ 已保存';
       status.className = 'save-status';
-      document.getElementById('chunk-select').value = chunkMins;
-      currentConfig = {api_key: apiKey, vault_path: vaultPath, folder, chunk_minutes: chunkMins};
+      currentConfig = {api_key: apiKey, vault_path: vaultPath, folder, chunk_minutes: chunkMins, cookies_browser: cookiesBrowser};
       if (apiKey && vaultPath) document.getElementById('banner').style.display = 'none';
       setTimeout(() => { status.textContent = ''; }, 3000);
     } else {
@@ -366,9 +585,6 @@ function toggleSettingsBody() {
 }
 
 // ── Processing ──────────────────────────────────────────────────────────────
-let totalChunks = 0;
-let processedChunks = 0;
-
 async function startProcess() {
   const rawInput = document.getElementById('url-input').value.trim();
   if (!rawInput) {
@@ -379,8 +595,8 @@ async function startProcess() {
   const urls = rawInput.split('\n').map(u => u.trim()).filter(u => u.length > 0);
   if (urls.length === 0) return;
 
-  // Update chunk setting from select
-  const chunkMins = parseInt(document.getElementById('chunk-select').value);
+  // 本次分段粒度（真正随请求发送 —— 修复了以前选了不生效的 bug）
+  const chunkMins = parseInt(document.getElementById('chunk-select').value) || 10;
 
   const btn = document.getElementById('process-btn');
   btn.classList.add('loading');
@@ -390,13 +606,14 @@ async function startProcess() {
   document.getElementById('results-section').classList.remove('visible');
   document.getElementById('log-feed').innerHTML = '';
   document.getElementById('progress-bar').style.width = '0%';
-  totalChunks = 0; processedChunks = 0;
+  document.getElementById('progress-bar').classList.remove('indet');
+  const stg = document.getElementById('progress-stage'); stg.style.display = 'none'; stg.classList.remove('done');
 
   try {
     const res = await fetch('/process', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({urls})
+      body: JSON.stringify({urls, chunk_minutes: chunkMins})
     });
     const {job_id} = await res.json();
     connectStream(job_id);
@@ -408,23 +625,22 @@ async function startProcess() {
 
 function connectStream(jobId) {
   const es = new EventSource('/stream/' + jobId);
+  let reconnects = 0;
+
+  es.onopen = () => { reconnects = 0; };
 
   es.onmessage = (ev) => {
+    reconnects = 0;
     const event = JSON.parse(ev.data);
 
     if (event.type === 'ping') return;
 
     if (event.type === 'start') {
       addLog(event.message, 'start');
+      setStage('开始处理…', 4, {indet: true});
     } else if (event.type === 'info') {
       addLog(event.message, 'info');
-      // Track progress: count "分析第 N/M 段" messages
-      const m = event.message.match(/分析第\s*(\d+)\/(\d+)/);
-      if (m) {
-        totalChunks = parseInt(m[2]);
-        processedChunks = parseInt(m[1]);
-        updateProgress();
-      }
+      detectStage(event.message);
     } else if (event.type === 'warn') {
       addLog(event.message, 'warn');
     } else if (event.type === 'video_error') {
@@ -433,7 +649,7 @@ function connectStream(jobId) {
       addLog(`✅ 完成：${event.result.title}`, 'done-line');
     } else if (event.type === 'done') {
       addLog('━━━ 全部处理完成 ━━━', 'done-line');
-      document.getElementById('progress-bar').style.width = '100%';
+      setStage('全部完成', 100, {done: true});
       es.close();
       showResults(event.results, event.errors);
       resetBtn();
@@ -446,9 +662,21 @@ function connectStream(jobId) {
   };
 
   es.onerror = () => {
-    addLog('⚠️  连接中断', 'warn');
-    es.close();
-    resetBtn();
+    // 连接掉了。EventSource 默认会自动重连（readyState=CONNECTING），并凭 Last-Event-ID
+    // 从服务端缓冲续传——不丢已分析的段、不用从头再跑。只有彻底关闭(CLOSED)才算真失败。
+    if (es.readyState === EventSource.CLOSED) {
+      addLog('⚠️  连接中断', 'warn');
+      resetBtn();
+      return;
+    }
+    reconnects++;
+    if (reconnects > 20) {           // ~1 分钟仍连不上才放弃（后台可能仍在处理，可刷新看历史）
+      es.close();
+      addLog('⚠️  网络持续中断，已停止重连。后台可能仍在处理，稍后可在历史里查看。', 'warn');
+      resetBtn();
+      return;
+    }
+    setStage('网络波动，正在自动重连…', null, {indet: true});
   };
 }
 
@@ -461,10 +689,29 @@ function addLog(msg, type = 'info') {
   feed.scrollTop = feed.scrollHeight;
 }
 
-function updateProgress() {
-  if (!totalChunks) return;
-  const pct = Math.min(95, (processedChunks / totalChunks) * 100);
-  document.getElementById('progress-bar').style.width = pct + '%';
+// #6 处理阶段进度反馈：把已有的日志消息映射成「阶段标签 + 进度条」，抓取阶段也有动静（不再死在 0%）
+function setStage(text, pct, opts) {
+  opts = opts || {};
+  const box = document.getElementById('progress-stage');
+  const txt = document.getElementById('progress-stage-text');
+  const bar = document.getElementById('progress-bar');
+  if (box.style.display === 'none') box.style.display = 'flex';
+  if (text) txt.textContent = text;
+  box.classList.toggle('done', !!opts.done);
+  if (typeof pct === 'number') bar.style.width = pct + '%';
+  bar.classList.toggle('indet', !!opts.indet && !opts.done);
+}
+function detectStage(msg) {
+  const m = msg.match(/分析第\s*(\d+)\/(\d+)/);
+  if (m) { const n = +m[1], t = +m[2]; setStage(`分析中 ${n}/${t} 段`, Math.min(88, 32 + (n / t) * 56)); return; }
+  if (/获取视频信息/.test(msg))       return setStage('抓取视频信息…', 10, {indet: true});
+  if (/视频：/.test(msg))             return setStage('已获取视频信息', 16, {indet: true});
+  if (/获取字幕/.test(msg))           return setStage('抓取字幕…', 22, {indet: true});
+  if (/字幕获取成功/.test(msg))       return setStage('字幕已就绪', 28, {indet: true});
+  if (/切分完成/.test(msg))           return setStage('切分完成，开始分析…', 32, {indet: true});
+  if (/整体总结/.test(msg))           return setStage('生成整体总结…', 90, {indet: true});
+  if (/全文整理/.test(msg))           return setStage('生成全文整理…', 94, {indet: true});
+  if (/输出文件|HTML 报告/.test(msg)) return setStage('生成笔记文件…', 97, {indet: true});
 }
 
 function showResults(results, errors) {
@@ -477,14 +724,15 @@ function showResults(results, errors) {
     const card = document.createElement('div');
     card.className = 'result-card';
     card.innerHTML = `
-      <div class="result-thumb">🎬</div>
+      ${thumbHtml(r, r.duration)}
       <div class="result-info">
-        <div class="result-title" title="${esc(r.title)}">${esc(r.title)}</div>
-        <div class="result-meta">📺 ${esc(r.channel)} · ⏱ ${esc(r.duration)} · ${r.sections} 个片段</div>
+        <div class="result-title" title="${esc(r.title)}">${esc(r.title_cn || r.title)}</div>
+        ${r.title_cn ? `<div class="lib-card-orig" title="${esc(r.title)}">${esc(r.title)}</div>` : ''}
+        <div class="result-meta"><span class="mi">${IC.tv} ${esc(r.channel)}</span><span class="mi">${IC.clock} ${esc(r.duration)}</span><span class="mi">${IC.layers} ${r.sections} 段</span></div>
       </div>
       <div class="result-actions">
-        <a class="btn-sm btn-html" href="/output/${esc(r.html_filename)}" target="_blank">🌐 HTML 报告</a>
-        ${r.md_path ? `<button class="btn-sm btn-obs" onclick="copyPath('${esc(r.md_path)}')">📝 复制路径</button>` : ''}
+        <a class="btn-sm btn-html" href="${reportUrl(r.html_filename)}" target="_blank">${IC.doc} 报告</a>
+        ${r.md_path ? `<button class="btn-sm btn-obs" onclick="copyPath('${esc(r.md_path)}')">${IC.copy} 复制路径</button>` : ''}
       </div>
     `;
     list.appendChild(card);
@@ -494,10 +742,10 @@ function showResults(results, errors) {
     const card = document.createElement('div');
     card.className = 'result-card error-card';
     card.innerHTML = `
-      <div class="result-thumb">❌</div>
+      <div class="thumb err">${IC.alert}</div>
       <div class="result-info">
         <div class="result-title">${esc(e.url)}</div>
-        <div class="result-meta" style="color:#991b1b">${esc(e.error)}</div>
+        <div class="result-meta" style="color:var(--red)">${esc(e.error)}</div>
       </div>
     `;
     list.appendChild(card);
@@ -522,6 +770,8 @@ function resetUI() {
   document.getElementById('progress-section').classList.remove('visible');
   document.getElementById('url-input').value = '';
   document.getElementById('progress-bar').style.width = '0%';
+  document.getElementById('progress-bar').classList.remove('indet');
+  document.getElementById('progress-stage').style.display = 'none';
   document.getElementById('log-feed').innerHTML = '';
 }
 
@@ -545,13 +795,18 @@ function esc(str) {
   return d.innerHTML;
 }
 
+// 把文件名编码成安全的 URL 片段：# / 空格 等都会被编码，避免浏览器把 # 当锚点而 404
+function reportUrl(filename) {
+  return '/output/' + encodeURIComponent(filename || '');
+}
+
 let toastTimer;
 function showToast(msg) {
   let t = document.getElementById('toast');
   if (!t) {
     t = document.createElement('div');
     t.id = 'toast';
-    t.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#1e293b;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;z-index:9999;opacity:0;transition:opacity .2s';
+    t.style.cssText = 'position:fixed;bottom:70px;right:18px;background:#1e293b;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;z-index:9999;opacity:0;transition:opacity .2s;pointer-events:none;box-shadow:0 4px 16px rgba(30,58,95,.22)';
     document.body.appendChild(t);
   }
   t.textContent = msg;
@@ -561,45 +816,314 @@ function showToast(msg) {
 }
 
 // ── Library ─────────────────────────────────────────────────────────────────
+let libEntries = [];
+
 async function loadLibrary() {
   try {
     const res = await fetch('/library');
-    const entries = await res.json();
-    renderLibrary(entries);
+    libEntries = await res.json();
+    renderLibrary();
   } catch(e) {
     // silently fail — library is optional
   }
 }
 
-function renderLibrary(entries) {
+function renderLibrary() {
   const list = document.getElementById('lib-list');
   const countEl = document.getElementById('lib-count');
-  countEl.textContent = entries.length + ' 个视频';
 
-  if (!entries.length) {
-    list.innerHTML = '<div class="lib-empty">还没有处理过视频 — 处理完成后会自动出现在这里</div>';
+  // #8 类别筛选合一：库头部一行 chip，与列表共用 currentCat（取代原下拉 + 粘贴区两套）
+  const cats = [...new Set(libEntries.map(e => e.category).filter(Boolean))].sort();
+  if (currentCat && !cats.includes(currentCat)) currentCat = '';
+  const filterWrap = document.getElementById('cat-filter');
+  if (cats.length) {
+    filterWrap.style.display = '';
+    filterWrap.innerHTML =
+      `<button class="cb-chip ${currentCat ? '' : 'active'}" onclick="browseCat('')">全部</button>` +
+      cats.map(c => `<button class="cb-chip ${currentCat === c ? 'active' : ''}" onclick="browseCat('${esc(c)}')">${esc(c)}</button>`).join('');
+  } else {
+    filterWrap.style.display = 'none';
+    filterWrap.innerHTML = '';
+  }
+
+  const shown = currentCat ? libEntries.filter(e => e.category === currentCat) : libEntries;
+  countEl.textContent = shown.length + ' 个视频';
+
+  if (!shown.length) {
+    list.innerHTML = '<div class="lib-empty">' +
+      (libEntries.length ? '该类别下还没有笔记' : '还没有处理过视频 — 处理完成后会自动出现在这里') + '</div>';
+    renderPasteHelpers();
     return;
   }
 
+  if (libView === 'date') { renderDateView(shown); renderPasteHelpers(); return; }
+
   list.innerHTML = '';
-  entries.forEach(e => {
+  shown.forEach(e => {
+    const tags = (e.tags || []).map(t => `<span class="tag-chip">${esc(t)}</span>`).join('');
     const card = document.createElement('div');
     card.className = 'lib-card';
     card.innerHTML = `
-      <div class="lib-icon">🎬</div>
+      ${thumbHtml(e, e.duration)}
       <div class="lib-info">
-        <div class="lib-card-title" title="${esc(e.title)}">${esc(e.title)}</div>
-        <div class="lib-card-meta">📺 ${esc(e.channel)} · ⏱ ${esc(e.duration)} · ${esc(e.date)} · ${e.sections} 段</div>
+        <div class="lib-card-title" title="${esc(e.title)}">${esc(e.title_cn || e.title)}</div>
+        ${e.title_cn ? `<div class="lib-card-orig" title="${esc(e.title)}">${esc(e.title)}</div>` : ''}
+        <div class="lib-card-meta"><span class="date-chip">${IC.cal} ${esc(e.date)}</span>${e.category ? `<span class="cat-chip">${esc(e.category)}</span>` : ''}<span class="mi">${IC.tv} ${esc(e.channel)}</span><span class="mi">${IC.clock} ${esc(e.duration)}</span><span class="mi">${IC.layers} ${e.sections} 段</span></div>
+        ${tags ? `<div class="lib-tags">${tags}</div>` : ''}
         ${e.summary ? `<div class="lib-card-summary">${esc(e.summary)}</div>` : ''}
+        <div class="lib-edit-wrap"></div>
       </div>
       <div class="lib-actions">
-        <a class="btn-sm btn-html" href="/output/${esc(e.html_filename)}" target="_blank">🌐 报告</a>
-        <button class="btn-sm btn-obs" style="border:1px solid #ddd6fe" onclick="prefillUrl('${esc(e.url)}')">↩ 重跑</button>
+        <a class="btn-sm btn-html" href="${reportUrl(e.html_filename)}" target="_blank">${IC.doc} 报告</a>
+        <button class="btn-sm btn-edit" onclick="toggleEdit(this)">${IC.edit} 编辑分类</button>
+        <button class="btn-sm btn-reveal" onclick="revealFile('${esc(e.html_filename)}', this)">${IC.folder} 定位文件</button>
+        <button class="btn-sm btn-obs" onclick="prefillUrl('${esc(e.url)}')">${IC.rerun} 重跑</button>
+        <button class="btn-sm btn-del" onclick="deleteEntry(this)">${IC.trash} 删除</button>
       </div>
     `;
+    card._entry = e;
     list.appendChild(card);
   });
+
+  renderPasteHelpers();
 }
+
+// 历史区视图切换：卡片 / 按日期检索
+function setLibView(v) {
+  libView = v;
+  document.getElementById('vt-cards').classList.toggle('active', v === 'cards');
+  document.getElementById('vt-date').classList.toggle('active', v === 'date');
+  renderLibrary();
+}
+// 按日期检索：历史按日期分组，每条只显示封面 + 中文标题，点开报告，利于回溯检索
+function renderDateView(shown) {
+  const list = document.getElementById('lib-list');
+  const groups = {};
+  shown.forEach(e => { const d = (e.created_at || e.date || '').slice(0, 10) || '未知日期'; (groups[d] = groups[d] || []).push(e); });
+  const dates = Object.keys(groups).filter(d => d !== '未知日期').sort().reverse();
+  if (groups['未知日期']) dates.push('未知日期');  // 缺日期的归到末尾
+  list.innerHTML = dates.map(d => {
+    const lbl = dateLabel(d);
+    const head = (lbl === '今天' || lbl === '昨天') ? `${esc(d)} · ${esc(lbl)}` : esc(lbl);
+    const rows = groups[d].map(e => `
+      <a class="dv-row" href="${reportUrl(e.html_filename)}" target="_blank" title="${esc(e.title)}">
+        ${thumbHtml(e, e.duration, 'sm')}
+        <span class="dv-title">${esc(e.title_cn || e.title)}</span>
+      </a>`).join('');
+    return `<div class="dv-group"><div class="dv-date">${head}<span class="dv-n">${groups[d].length}</span></div>${rows}</div>`;
+  }).join('');
+}
+
+// A. 最近链接 + C2. 按类别浏览（都画在粘贴卡片里）
+function renderPasteHelpers() {
+  // 最近链接：默认折叠，展开后按「今天/昨天/日期」分组；时间标签默认显示日期、点击展开到分钟
+  const histWrap = document.getElementById('link-hist');
+  const lhList = document.getElementById('lh-list');
+  const recent = libEntries.slice(0, 20);
+  if (recent.length) {
+    document.getElementById('lh-count').textContent = '· ' + recent.length + ' 篇';
+    let html = '', lastLabel = null;
+    recent.forEach(e => {
+      const d = entryDate(e), t = entryTime(e), label = dateLabel(d);
+      if (label !== lastLabel) { html += `<div class="lh-datehdr">${esc(label)}</div>`; lastLabel = label; }
+      const mmdd = d ? d.slice(5) : '—';
+      const timeAttr = t ? ` data-time="${t}" data-date="${mmdd}" onclick="toggleTime(event, this)" title="点开看具体时间"` : '';
+      html += `
+      <div class="lh-item">
+        <span class="lh-time"${timeAttr}>${esc(mmdd)}</span>
+        ${e.category ? `<span class="lh-cat">${esc(e.category)}</span>` : ''}
+        <a class="lh-link" href="${esc(e.url)}" target="_blank" title="${esc(e.title)}">${esc(e.title_cn || e.title)}</a>
+        <button class="lh-copy" onclick="copyLink('${esc(e.url)}', this)">复制</button>
+      </div>`;
+    });
+    lhList.innerHTML = html;
+    histWrap.style.display = '';
+  } else {
+    histWrap.style.display = 'none';
+  }
+
+}
+
+function copyLink(url, btn) {
+  navigator.clipboard.writeText(url).then(() => {
+    const o = btn.textContent; btn.textContent = '已复制 ✓';
+    setTimeout(() => btn.textContent = o, 1500);
+  });
+}
+
+// 最近链接：折叠 / 日期分组 / 时间点开
+function entryDate(e) { return (e.created_at || e.date || '').slice(0, 10); }
+function entryTime(e) { const c = e.created_at || ''; return c.length >= 16 ? c.slice(11, 16) : ''; }
+function dateLabel(d) {
+  if (!d) return '更早';
+  const today = new Date(); const y = new Date(today); y.setDate(y.getDate() - 1);
+  const fmt = dt => `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;
+  if (d === fmt(today)) return '今天';
+  if (d === fmt(y)) return '昨天';
+  return d;
+}
+function toggleHist() {
+  const list = document.getElementById('lh-list');
+  const x = document.getElementById('lh-bar-x');
+  const open = list.style.display === 'none';   // 当前隐藏 → 这次是展开
+  list.style.display = open ? 'flex' : 'none';
+  x.textContent = open ? '收起 ▴' : '点击展开 ▾';
+}
+function toggleTime(ev, el) {
+  ev.preventDefault(); ev.stopPropagation();
+  const showingTime = el.dataset.showing === 'time';
+  el.textContent = showingTime ? el.dataset.date : el.dataset.time;
+  el.dataset.showing = showingTime ? 'date' : 'time';
+}
+
+// 文章库卡片：软删除（二次确认 → 移入回收站 → 重载库）
+async function deleteEntry(btn) {
+  const card = btn.closest('.lib-card');
+  const e = card && card._entry;
+  if (!e) return;
+  if (!btn.classList.contains('confirm')) {
+    btn.classList.add('confirm');
+    btn._orig = btn.innerHTML; btn.textContent = '确认删除？';
+    clearTimeout(btn._t);
+    btn._t = setTimeout(() => { btn.classList.remove('confirm'); btn.innerHTML = btn._orig || (IC.trash + ' 删除'); }, 4000);
+    return;
+  }
+  clearTimeout(btn._t);
+  btn.disabled = true; btn.textContent = '删除中…';
+  try {
+    const res = await fetch('/delete-entry', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({url: e.url})});
+    const data = await res.json();
+    if (data.ok) { showToast(data.message || '已移入回收站'); await loadLibrary(); await loadTrash(); }
+    else { showToast('删除失败：' + (data.message || '')); btn.disabled = false; btn.classList.remove('confirm'); btn.innerHTML = IC.trash + ' 删除'; }
+  } catch(err) { showToast('删除失败：本地服务未运行'); btn.disabled = false; btn.classList.remove('confirm'); btn.innerHTML = IC.trash + ' 删除'; }
+}
+
+// 回收站：列出已删除的笔记，可一键恢复 / 打开文件夹
+let trashItems = [];
+async function loadTrash() {
+  try {
+    const res = await fetch('/trash');
+    trashItems = await res.json();
+    renderTrash();
+  } catch(e) { /* optional */ }
+}
+function renderTrash() {
+  const wrap = document.getElementById('trash-hist');
+  const list = document.getElementById('th-list');
+  if (!trashItems.length) { wrap.style.display = 'none'; wrap.classList.remove('open'); return; }
+  wrap.style.display = '';
+  document.getElementById('th-count').textContent = '· ' + trashItems.length + ' 篇';
+  document.getElementById('th-pill-n').textContent = trashItems.length;
+  list.innerHTML = trashItems.map(t => {
+    const when = t.deleted_at ? `<span class="lh-time" style="cursor:default">${esc(t.deleted_at.slice(5,10))}</span>` : '';
+    const cat = t.category ? `<span class="lh-cat">${esc(t.category)}</span>` : '';
+    const tag = t.orphan ? `<span class="th-orphan" title="旧版删除、无原始分类/简介信息">旧文件</span>` : '';
+    const act = `<button class="lh-copy th-restore" onclick="restoreEntry('${esc(t.id)}', this)">${IC.restore} 恢复</button>`;
+    return `<div class="lh-item">${when}${cat}<span class="lh-link" title="${esc(t.title)}">${esc(t.title)}</span>${tag}${act}</div>`;
+  }).join('') +
+    `<div class="th-foot"><button class="th-openfolder" onclick="revealTrash(this)">${IC.folder} 打开回收站文件夹（在访达里）</button></div>`;
+}
+function toggleTrash() {
+  document.getElementById('trash-hist').classList.toggle('open');
+}
+async function restoreEntry(id, btn) {
+  btn.disabled = true; btn.textContent = '恢复中…';
+  try {
+    const res = await fetch('/restore-entry', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({id})});
+    const data = await res.json();
+    if (data.ok) { showToast(data.message || '已恢复'); await loadLibrary(); await loadTrash(); }
+    else { showToast('恢复失败：' + (data.message || '')); btn.disabled = false; btn.innerHTML = IC.restore + ' 恢复'; }
+  } catch(e) { showToast('恢复失败：本地服务未运行'); btn.disabled = false; btn.innerHTML = IC.restore + ' 恢复'; }
+}
+async function revealTrash(btn) {
+  const o = btn.innerHTML; btn.textContent = '打开中…';
+  try {
+    const res = await fetch('/reveal-trash', {method:'POST'});
+    const data = await res.json();
+    showToast(data.ok ? '已在访达里打开回收站文件夹' : ('打开失败：' + (data.message || '')));
+  } catch(e) { showToast('打开失败：本地服务未运行'); }
+  btn.innerHTML = o;
+}
+
+function browseCat(cat) {
+  currentCat = cat;
+  renderLibrary();
+  document.getElementById('lib-section').scrollIntoView({behavior: 'smooth'});
+}
+
+// G. 在访达里定位 HTML 文件，方便分享
+async function revealFile(filename, btn) {
+  const o = btn.innerHTML; btn.textContent = '定位中…'; btn.disabled = true;
+  try {
+    const res = await fetch('/reveal', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({filename})});
+    const data = await res.json();
+    showToast(data.ok ? '已在访达中打开文件位置' : ('定位失败：' + (data.message || '')));
+  } catch(e) { showToast('定位失败：本地服务未运行'); }
+  btn.innerHTML = o; btn.disabled = false;
+}
+
+// C1. 编辑类别 / 标签
+let allCategories = [];
+async function loadCategories() {
+  try { allCategories = await (await fetch('/categories')).json(); } catch(e) { allCategories = []; }
+}
+
+function toggleEdit(btn) {
+  const card = btn.closest('.lib-card');
+  const wrap = card.querySelector('.lib-edit-wrap');
+  if (wrap.querySelector('.lib-edit')) { wrap.innerHTML = ''; return; }
+  const e = card._entry;
+  const opts = allCategories.map(c =>
+    `<option value="${esc(c)}" ${c === e.category ? 'selected' : ''}>${esc(c)}</option>`).join('');
+  const tagStr = (e.tags || []).join('、');
+  wrap.innerHTML = `
+    <div class="lib-edit">
+      <div class="lib-edit-row">
+        <label>类别</label>
+        <select class="le-cat">${opts}</select>
+        <input class="le-newcat" placeholder="或新建类别（填了以这个为准）">
+      </div>
+      <div class="lib-edit-row">
+        <label>标签</label>
+        <input class="le-tags" value="${esc(tagStr)}" placeholder="用、或，分隔">
+      </div>
+      <div class="le-actions">
+        <button class="le-save" onclick="saveEdit(this)">保存</button>
+        <button class="le-cancel" onclick="toggleEdit(this.closest('.lib-card').querySelector('.btn-edit'))">取消</button>
+      </div>
+      <div class="le-hint">保存后会把 Obsidian 笔记搬到新类别子文件夹，并尽量同步报告里的分类/标签。</div>
+    </div>`;
+}
+
+async function saveEdit(btn) {
+  const card = btn.closest('.lib-card');
+  const e = card._entry;
+  const editBox = card.querySelector('.lib-edit');
+  const newCat = editBox.querySelector('.le-newcat').value.trim();
+  const category = newCat || editBox.querySelector('.le-cat').value;
+  const tags = editBox.querySelector('.le-tags').value.split(/[,，、]/).map(s => s.trim()).filter(Boolean);
+  btn.disabled = true; btn.textContent = '保存中…';
+  try {
+    const res = await fetch('/update-meta', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({url: e.url, category, tags})});
+    const data = await res.json();
+    if (data.ok) { showToast('已更新分类 / 标签'); await loadLibrary(); }
+    else { showToast('更新失败：' + (data.message || '')); btn.disabled = false; btn.textContent = '保存'; }
+  } catch(err) { showToast('更新失败：本地服务未运行'); btn.disabled = false; btn.textContent = '保存'; }
+}
+
+// C3. 顶栏：返回笔记中心 / 打开文本精读
+async function goDashboard() {
+  try {
+    const res = await fetch('/open-dashboard', {method:'POST'});
+    const data = await res.json();
+    if (!data.ok) showToast('打开失败：' + (data.message || ''));
+  } catch(e) { showToast('打开失败：本地服务未运行'); }
+}
+function openTextDigest() { window.open('http://localhost:8010', '_blank'); }
 
 function prefillUrl(url) {
   document.getElementById('url-input').value = url;
@@ -609,7 +1133,9 @@ function prefillUrl(url) {
 
 // Init
 loadConfig();
+loadCategories();
 loadLibrary();
+loadTrash();
 </script>
 </body>
 </html>
